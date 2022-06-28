@@ -21,6 +21,7 @@ export { default as EditSites } from './Sites/EditSites';
 export { default as NewSites } from './Sites/NewSites';
 export { default as SiteAnalysis } from './Sites/SiteAnalysis';
 export { default as MailForReviews } from './Sites/MailForReviews';
+export { default as IndivualAnalysis } from './Sites/IndivualAnalysis';
 
 export { default as ListRoles } from './Roles/ListRoles';
 export { default as EditRoles } from './Roles/EditRoles';

@@ -5,7 +5,7 @@ import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 
 import { Navbar, Footer, Sidebar} from './components';
 import {
- Kanban,Editor, ListSites, NewSites, EditSites, ViewSites,  Dashboard, SiteAnalysis, MailForReviews} from './pages';
+ Kanban,Editor, ListSites, NewSites, EditSites, ViewSites,  Dashboard, SiteAnalysis, MailForReviews, IndivualAnalysis} from './pages';
 
 import './App.css';
 
@@ -72,6 +72,7 @@ const App = () => {
                   <Route path=':siteid' element={<SiteAnalysis/>}/>
                   <Route path='edit/:siteid' element={<EditSites  id={subid}/>}/>
                   <Route path='mail' element={<MailForReviews/>}/>
+                  <Route path='analysis/:siteid' element={<IndivualAnalysis/>}/>
                 </Route>
 
 

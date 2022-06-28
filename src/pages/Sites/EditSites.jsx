@@ -154,12 +154,12 @@ const EditSites = (props) => {
             </FormLabel>
             <TextField
               style={{ paddingBottom: "30px" }}
-              name="category"
+              name="location"
               fullWidth
-              value={values.category}
+              value={values.location}
               onChange={handleChange}
-              error={FormErrors.category}
-              helperText={FormErrors.category}
+              error={FormErrors.location}
+              helperText={FormErrors.location}
             />
 
             <div className="formTitle">Short Description and Facts</div>
