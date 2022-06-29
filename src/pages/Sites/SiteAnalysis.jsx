@@ -195,7 +195,7 @@ const SiteAnalysis = () => {
             <Box style={{ paddingLeft: "10px" }}>
               <Grid container spacing={2}>
                 <Grid iteam xs={10}>
-                  <Typography fontFamily="Asap">
+                  <Typography sx={{ paddingLeft: "13px", fontFamily: "Asap" }}>
                     <b>Site Individual Analysis</b>
                   </Typography>
                 </Grid>

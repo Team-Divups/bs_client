@@ -14,6 +14,7 @@ import {
   MenuItem,
 } from "@material-ui/core";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
 
 import "../styles.css";
 import swal from "sweetalert";
@@ -30,6 +31,7 @@ const NewSites = (props) => {
     cname: "",
     cemail: "",
     location: "",
+    siteimg: "",
     idSubscription: props.id,
   };
 
@@ -47,6 +49,11 @@ const NewSites = (props) => {
       ...values,
       [name]: value,
     });
+  };
+
+  //handle image
+  const handleImage = (e) => {
+    setValues({ ...values, siteimg: e.target.files[0] });
   };
 
   //validation
@@ -92,15 +99,28 @@ const NewSites = (props) => {
 
   //Add site
   const AddSite = async () => {
-    await axios.post("http://localhost:3004/site/create", values).then(() => {
-      console.log("success");
-      swal({
-        text: "Site created successfully",
-        icon: "success",
-        timer: 2000,
-        buttons: false,
-      });
-    });
+    await axios
+      .post("http://localhost:3004/site/create", values, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then(() => {
+        console.log("success");
+        swal({
+          text: "Site created successfully",
+          icon: "success",
+          timer: 2000,
+          buttons: false,
+        });
+      }).catch((error)=>{
+        console.log(error.message);
+        swal({
+          text: "This site already exists",
+          icon: "warning",
+          timer: 2000,
+          buttons: false,
+        });
+      })
+
 
     history(-1);
   };
@@ -111,7 +131,10 @@ const NewSites = (props) => {
   return (
     <>
       <div className="formPage">
-        <div style={{textAlign:'center',paddingTop:'10px'}}> <Header  title="Add New Site" /></div>
+        <div style={{ textAlign: "center", paddingTop: "10px" }}>
+          {" "}
+          <Header title="Add New Site" />
+        </div>
 
         <div className="FormContainer">
           <form onSubmit={handleSubmit}>
@@ -141,17 +164,15 @@ const NewSites = (props) => {
               onChange={handleChange}
             />
 
-            <FormLabel className="label">
-              Site Location
-            </FormLabel>
+            <FormLabel className="label">Site Location</FormLabel>
             <TextField
               style={{ paddingBottom: "30px" }}
-              name="category"
+              name="location"
               fullWidth
-              value={values.category}
+              value={values.location}
               onChange={handleChange}
-              error={FormErrors.category}
-              helperText={FormErrors.category}
+              error={FormErrors.location}
+              helperText={FormErrors.location}
             />
 
             <div className="formTitle">Short Description and Facts</div>
@@ -199,6 +220,18 @@ const NewSites = (props) => {
               value={values.webURL}
               onChange={handleChange}
             />
+
+            <div>
+              <FormLabel className="label">
+                Site Profile Picture : <DriveFolderUploadIcon />
+              </FormLabel>
+              <input
+                style={{ paddingTop: "15px", paddingBottom: "15px" }}
+                type="file"
+                name="siteimg"
+                onChange={handleImage}
+              />
+            </div>
 
             <div style={{ paddingTop: "50px" }}>
               <span style={{ paddingLeft: "40%" }}>

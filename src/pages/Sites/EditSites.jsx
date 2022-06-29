@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../../components/Header";
 
 import { useState, useEffect } from "react";
-import { useNavigate,useParams} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 import {
@@ -14,13 +14,13 @@ import {
   MenuItem,
 } from "@material-ui/core";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
 
 import "../styles.css";
 import swal from "sweetalert";
 
 const EditSites = (props) => {
-  
-  const {siteid} = useParams();
+  const { siteid } = useParams();
 
   const initialValues = {
     sitename: "",
@@ -30,7 +30,8 @@ const EditSites = (props) => {
     cname: "",
     cemail: "",
     location: "",
-    siteid:siteid
+    siteimg: "",
+    siteid: siteid,
   };
 
   const [values, setValues] = useState(initialValues);
@@ -41,12 +42,11 @@ const EditSites = (props) => {
   const history = useNavigate();
 
   //site info
-  useEffect( () =>{
-    axios.get(`http://localhost:3004/site/view/${siteid}`).then(
-      (response)=>{
-          setValues({...response.data[0]});
-      })
-  },[siteid])
+  useEffect(() => {
+    axios.get(`http://localhost:3004/site/view/${siteid}`).then((response) => {
+      setValues({ ...response.data[0] });
+    });
+  }, [siteid]);
 
   //updating values
   const handleChange = (e) => {
@@ -55,6 +55,11 @@ const EditSites = (props) => {
       ...values,
       [name]: value,
     });
+  };
+
+  //handle image
+  const handleImage = (e) => {
+    setValues({ ...values, siteimg: e.target.files[0] });
   };
 
   //validation
@@ -93,22 +98,25 @@ const EditSites = (props) => {
   //Changing upon errors
   useEffect(() => {
     if (Object.keys(FormErrors).length === 0 && isSubmit) {
-      console.log("success");
       EditSite();
     }
   }, [FormErrors]);
 
   //Add site
   const EditSite = async () => {
-    await axios.put("http://localhost:3004/site/edit", values).then(() => {
-      console.log("success");
-      swal({
-        text: "Site Updated successfully",
-        icon: "success",
-        timer: 2000,
-        buttons: false,
+    await axios
+      .put("http://localhost:3004/site/edit", values, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then(() => {
+        console.log("success");
+        swal({
+          text: "Site Updated successfully",
+          icon: "success",
+          timer: 2000,
+          buttons: false,
+        });
       });
-    });
 
     history(-1);
   };
@@ -119,7 +127,10 @@ const EditSites = (props) => {
   return (
     <>
       <div className="formPage">
-      <div style={{textAlign:'center',paddingTop:'10px'}}> <Header  title="Edit Site" /></div>
+        <div style={{ textAlign: "center", paddingTop: "10px" }}>
+          {" "}
+          <Header title="Edit Site" />
+        </div>
 
         <div className="FormContainer">
           <form onSubmit={handleSubmit}>
@@ -149,9 +160,7 @@ const EditSites = (props) => {
               onChange={handleChange}
             />
 
-            <FormLabel className="label">
-              Site Location
-            </FormLabel>
+            <FormLabel className="label">Site Location</FormLabel>
             <TextField
               style={{ paddingBottom: "30px" }}
               name="location"
@@ -207,6 +216,18 @@ const EditSites = (props) => {
               value={values.webURL}
               onChange={handleChange}
             />
+
+            <div>
+              <FormLabel className="label">
+                Site Profile Picture : <DriveFolderUploadIcon />
+              </FormLabel>
+              <input
+                style={{ paddingTop: "15px", paddingBottom: "15px" }}
+                type="file"
+                name="siteimg"
+                onChange={handleImage}
+              />
+            </div>
 
             <div style={{ paddingTop: "50px" }}>
               <span style={{ paddingLeft: "40%" }}>

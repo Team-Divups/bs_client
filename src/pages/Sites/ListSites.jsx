@@ -1,152 +1,190 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
-import Header from '../../components/Header';
+import Header from "../../components/Header";
 
-import { GridListTile,GridList} from '@material-ui/core';
-import {Card, CardContent,Typography,Grid,Button} from '@mui/material';
-import { AddCircleRounded, DeleteOutlineSharp,Edit} from '@mui/icons-material';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { GridListTile, GridList } from "@material-ui/core";
+import { Card, CardContent, Typography, Grid, Button } from "@mui/material";
+import {
+  AddCircleRounded,
+  DeleteOutlineSharp,
+  Edit,
+} from "@mui/icons-material";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-import swal from 'sweetalert';
+import swal from "sweetalert";
 
-import site from '../../Assets/site.jpg';
-import '../viewpage.css';
-import '../styles.css';
+import site from "../../Assets/site.jpg";
+import "../viewpage.css";
+import "../styles.css";
 
-const ListSites =(props)=>{
-
-  const [siteData,setSiteData]=useState([]);
+const ListSites = (props) => {
+  const [siteData, setSiteData] = useState([]);
   //  const [subid,setSubid] = useState(props.id);
 
-   //sites list
-  useEffect( () =>{
-    axios.get(`http://localhost:3004/site/${props.id}`).then(
-      (response)=>{
-          setSiteData(response.data);
-          console.log(props.id);
-      })
-  },[props.id])
+  //sites list
+  useEffect(() => {
+    axios.get(`http://localhost:3004/site/${props.id}`).then((response) => {
+      setSiteData(response.data);
+      console.log(props.id);
+    });
+  }, [props.id]);
 
-
-
-//delete a site
-const Delete = (id) =>{
+  //delete a site
+  const Delete = (id) => {
     console.log(id);
     swal({
-        text : "Are you sure you want to delete ?",
-        buttons: true,
-        confirmButtonText : 'Yes,Delete',
-        cancelButtonText: 'No,Cancel',
-        dangerMode: true,
-        icon : 'warning',
-    }).then( (willDelete)=>{
-        if(willDelete){
-            axios.post(`http://localhost:3004/request/create`,{
-                problem : "Delete this site",
-                status:"Not started",
-                siteId : id
-            }).then(
-                (response)=>{
-                    swal({
-                        title : 'Done !',
-                        text  : 'Request for site removal sent',
-                        icon  : 'success',
-                        timer : 2000,
-                        button : false,
-                    })
-                }
-            )
-        } else {
+      text: "Are you sure you want to delete ?",
+      buttons: true,
+      confirmButtonText: "Yes,Delete",
+      cancelButtonText: "No,Cancel",
+      dangerMode: true,
+      icon: "warning",
+    }).then((willDelete) => {
+      if (willDelete) {
+        axios
+          .post(`http://localhost:3004/request/create`, {
+            problem: "Delete this site",
+            status: "Not started",
+            siteId: id,
+          })
+          .then((response) => {
             swal({
-                text : "Site details are restored !",
-                timer:2000,
-                buttons:false,
-            })
-        }
-    })     
-}
+              title: "Done !",
+              text: "Request for site removal sent",
+              icon: "success",
+              timer: 2000,
+              button: false,
+            });
+          });
+      } else {
+        swal({
+          text: "Site details are restored !",
+          timer: 2000,
+          buttons: false,
+        });
+      }
+    });
+  };
 
-
-
-// delete all request
-const DeleteAll = ()=>{
+  // delete all request
+  const DeleteAll = () => {
     swal({
-        title : "Are you sure?",
-        text :"Use Help Desk to proceed your request",
-        icon : 'warning'
-    })
-}
-
+      title: "Are you sure?",
+      text: "Use Help Desk to proceed your request",
+      icon: "warning",
+    });
+  };
 
   return (
     <>
-         <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
-            <Header title="Sites"/>
+      <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
+        <Header category="Pages" title="Sites" />
 
-            <Grid container spacing={2}>
-                <Grid item xs={9}>
-                   <span className="dataTableTitle">Overview of Sites</span>
-                </Grid>
+        <Grid container spacing={2}>
+          <Grid item xs={9}>
+            <span className="dataTableTitle">Overview of Sites</span>
+          </Grid>
 
-                <Grid item xs={3}>
-                    <span style={{paddingLeft:'30px',paddingRight:'20px'}}>
-                        <Button style={{backgroundColor:'red'}} size="small" variant="contained" endIcon={<DeleteOutlineSharp/>} onClick={DeleteAll }>
-                            Delete All
+          <Grid item xs={3}>
+            <span style={{ paddingLeft: "30px", paddingRight: "20px" }}>
+              <Button
+                style={{ backgroundColor: "red" }}
+                size="small"
+                variant="contained"
+                endIcon={<DeleteOutlineSharp />}
+                onClick={DeleteAll}
+              >
+                Remove All
+              </Button>
+            </span>
+
+            <span>
+              <Link to="/sites/new">
+                <Button
+                  size="small"
+                  variant="contained"
+                  endIcon={<AddCircleRounded />}
+                >
+                  Create
+                </Button>
+              </Link>
+            </span>
+          </Grid>
+        </Grid>
+
+        <GridList cols={3}>
+          {siteData.map((sdata, index) => {
+            return (
+              <>
+                <GridListTile>
+                  <Card
+                    sx={{
+                      width: 350,
+                      paddingTop: 6,
+                      marginRight: 5,
+                      paddingRight: 5,
+                      height: 470,
+                      gap: 5,
+                    }}
+                  >
+                    <img
+                      className="siteimg"
+                      src={
+                        sdata.siteimg
+                          ? `http://localhost:3004/${sdata.siteimg}`
+                          : site
+                      }
+                      alt="site"
+                    />
+
+                    <CardContent>
+                      <Grid container spacing={2}>
+                        <Grid item xs={10}>
+                          <Typography fontFamily="Mulish">
+                            <b>{sdata.sitename}</b>
+                          </Typography>
+                        </Grid>
+
+                        <Grid item xs={1}>
+                          <Link to={`/sites/edit/${sdata.siteid}`}>
+                            <Edit fontSize="12" />
+                          </Link>
+                        </Grid>
+
+                        <Grid item xs={1}>
+                          <DeleteIcon
+                            fontSize="12"
+                            onClick={() => {
+                              Delete(sdata.siteid);
+                            }}
+                          />
+                        </Grid>
+                      </Grid>
+
+                      <div style={{ height: "160px",paddingTop:'25px' }} className="siteinfo">
+                        {sdata.sitedescription}
+                      </div>
+
+                      <Link to={`/sites/${sdata.siteid}`}>
+                        <Button
+                          variant="outlined"
+                          style={{ fontFamily: "Asap" }}
+                        >
+                          View Site
                         </Button>
-                    </span>
-
-                    <span>
-                        <Link to="/sites/new">
-                            <Button size="small" variant="contained" endIcon={<AddCircleRounded/>}>Create</Button>
-                        </Link>
-                    </span>
-                </Grid>
-            </Grid>
-
-            <GridList cols={3}>
-
-                {siteData.map((sdata,index)=>{
-                    return(<> 
-                        <GridListTile>
-                            <Card sx={{ width: 350,paddingTop: 6, marginRight: 5,paddingRight:5,height: 470,gap:5}} >
-                                <img
-                                   className= 'siteimg'
-                                   src={site}
-                                   alt="site"/>
-
-                                <CardContent>
-                                   <Grid container spacing={2}>
-                                       <Grid item xs={10}>
-                                            
-                                            <Typography fontFamily='Mulish'><b>{sdata.sitename}</b></Typography>
-                                       </Grid>
-
-                                       <Grid item xs={1}>
-                                           <Link to={`/sites/edit/${sdata.siteid}`}><Edit fontSize='12'/></Link>
-                                       </Grid>
-
-                                       <Grid item xs={1}>
-                                           <DeleteIcon fontSize='12' onClick={()=>{Delete(sdata.siteid)}}/>
-                                       </Grid>
-                                   </Grid>
-                                    
-                                    <div style={{height:'160px'}} className='siteinfo'>{sdata.sitedescription}</div>
-                                    
-                                    <Link  to={`/sites/${sdata.siteid}`}>
-                                        <Button  variant='outlined' style={{fontFamily:'Asap'}}>View Site</Button>
-                                    </Link>
-                                    
-                                </CardContent>
-                            </Card>
-                        </GridListTile>
-                        </>)
-                    })}
-            </GridList>
-         </div>
+                      </Link>
+                    </CardContent>
+                  </Card>
+                </GridListTile>
+              </>
+            );
+          })}
+        </GridList>
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default  ListSites;
+export default ListSites;
