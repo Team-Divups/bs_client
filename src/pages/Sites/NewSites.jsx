@@ -42,6 +42,16 @@ const NewSites = (props) => {
 
   const history = useNavigate();
 
+  const [siteData, setSiteData] = useState([]);
+  
+  //sites list
+  useEffect(() => {
+    axios.get(`http://localhost:3004/site`).then((response) => {
+      setSiteData(response.data);
+      console.log(props.id);
+    });
+  }, []);
+  
   //updating values
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -69,6 +79,12 @@ const NewSites = (props) => {
       errors.sitename = "Name cannot exceed 30 characters";
     }
 
+    for (let i = 0; i <siteData.length; i++) {
+      if (siteData[i].sitename === values.sitename) {
+        errors.sitename='This Site name already exists';
+      }
+    }
+
     if (!values.sitedescription.length > 500) {
       errors.sitedescription = "Description is too long";
     }
@@ -87,21 +103,23 @@ const NewSites = (props) => {
 
     setFormErrors(validate(values));
     setIsSubmit(true);
+    console.log("testing");
   };
 
   //Changing upon errors
   useEffect(() => {
     if (Object.keys(FormErrors).length === 0 && isSubmit) {
-      console.log("success");
+      console.log("success 2");
       AddSite();
     }
   }, [FormErrors]);
 
   //Add site
   const AddSite = async () => {
+    console.log("success");
     await axios
       .post("http://localhost:3004/site/create", values, {
-        headers: { "Content-Type": "multipart/form-data" },
+        headers: { "content-type": "multipart/form-data" },
       })
       .then(() => {
         console.log("success");
@@ -111,16 +129,7 @@ const NewSites = (props) => {
           timer: 2000,
           buttons: false,
         });
-      }).catch((error)=>{
-        console.log(error.message);
-        swal({
-          text: "This site already exists",
-          icon: "warning",
-          timer: 2000,
-          buttons: false,
-        });
-      })
-
+      });
 
     history(-1);
   };

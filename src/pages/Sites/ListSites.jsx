@@ -5,7 +5,14 @@ import { Link } from "react-router-dom";
 import Header from "../../components/Header";
 
 import { GridListTile, GridList } from "@material-ui/core";
-import { Card, CardContent, Typography, Grid, Button } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  Typography,
+  Grid,
+  Button,
+  TextField,
+} from "@mui/material";
 import {
   AddCircleRounded,
   DeleteOutlineSharp,
@@ -21,6 +28,7 @@ import "../styles.css";
 
 const ListSites = (props) => {
   const [siteData, setSiteData] = useState([]);
+  const [searchdata, setSearchdata] = useState("");
   //  const [subid,setSubid] = useState(props.id);
 
   //sites list
@@ -30,6 +38,20 @@ const ListSites = (props) => {
       console.log(props.id);
     });
   }, [props.id]);
+
+  //search functionality
+  const handleChange = (e) => {
+    e.preventDefault();
+    setSearchdata(e.target.value.toLowerCase());
+
+    if (searchdata.length > 0) {
+      setSiteData(
+        siteData.filter((val) => {
+          return val.sitename.toLowerCase().includes(searchdata);
+        })
+      );
+    }
+  };
 
   //delete a site
   const Delete = (id) => {
@@ -83,12 +105,21 @@ const ListSites = (props) => {
         <Header category="Pages" title="Sites" />
 
         <Grid container spacing={2}>
-          <Grid item xs={9}>
+          <Grid item xs={7}>
             <span className="dataTableTitle">Overview of Sites</span>
           </Grid>
 
-          <Grid item xs={3}>
-            <span style={{ paddingLeft: "30px", paddingRight: "20px" }}>
+          <Grid item xs={5}>
+            <TextField
+              style={{ paddingRight: "20px",height:"10px" }}
+              placeholder="search"
+              type="search"
+              onChange={handleChange}
+              value={searchdata}
+              size="small"
+            />
+
+            <span style={{ paddingRight: "20px" }}>
               <Button
                 style={{ backgroundColor: "red" }}
                 size="small"
@@ -113,6 +144,7 @@ const ListSites = (props) => {
             </span>
           </Grid>
         </Grid>
+        <br/><br/>
 
         <GridList cols={3}>
           {siteData.map((sdata, index) => {
@@ -163,7 +195,10 @@ const ListSites = (props) => {
                         </Grid>
                       </Grid>
 
-                      <div style={{ height: "160px",paddingTop:'25px' }} className="siteinfo">
+                      <div
+                        style={{ height: "160px", paddingTop: "25px" }}
+                        className="siteinfo"
+                      >
                         {sdata.sitedescription}
                       </div>
 

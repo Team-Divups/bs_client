@@ -40,6 +40,15 @@ const EditSites = (props) => {
   const [isSubmit, setIsSubmit] = useState(false);
 
   const history = useNavigate();
+  const [siteData, setSiteData] = useState([]);
+
+  //sites list
+  useEffect(() => {
+    axios.get(`http://localhost:3004/site`).then((response) => {
+      setSiteData(response.data);
+      console.log(props.id);
+    });
+  }, []);
 
   //site info
   useEffect(() => {
@@ -74,7 +83,14 @@ const EditSites = (props) => {
     } else if (values.sitename.length > 30) {
       errors.sitename = "Name cannot exceed 30 characters";
     }
-
+    
+   
+    for (let i = 1; i <=siteData.length; i++) {
+      if (siteData[i].sitename === values.sitename) {
+        errors.sitename='This Site name already exists';
+      }
+    }
+  
     if (!values.sitedescription.length > 500) {
       errors.sitedescription = "Description is too long";
     }
@@ -106,7 +122,7 @@ const EditSites = (props) => {
   const EditSite = async () => {
     await axios
       .put("http://localhost:3004/site/edit", values, {
-        headers: { "Content-Type": "multipart/form-data" },
+        headers: { "content-type": "multipart/form-data" },
       })
       .then(() => {
         console.log("success");
