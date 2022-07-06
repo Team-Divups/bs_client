@@ -22,10 +22,10 @@ import swal from 'sweetalert';
 
 const EditRequest = () => {
   const [data, setData] = useState([]);
-  const [category, setCategory] = useState();
+  //const [category, setCategory] = useState();
   const [problem, setProblem] = useState();
-  const [severityLevel, setSeverityLevel] = useState();
-  const [site, setSite] = useState();
+  //const [severity_level, setSeverityLevel] = useState();
+  //const [site_name, setSite] = useState();
 
   const { idRequest } = useParams();
   const history = useNavigate();
@@ -42,10 +42,10 @@ const EditRequest = () => {
   const EditRequest = async (idRequest) => {
     await axios
       .put('http://localhost:3001/request/edit', {
-        category: category,
+        // category: category,
         problem: problem,
-        severityLevel: severityLevel,
-        site: site,
+        //severityLevel: severity_level,
+        //site: site_name,
         idRequest: idRequest,
       })
       .then(() => {
@@ -70,7 +70,7 @@ const EditRequest = () => {
         >
           <Grid container spacing={2} columnSpacing={5}>
             <Grid item xs={6}>
-              <FormControl>
+              {/* <FormControl>
                 <FormLabel required="true" className="label">
                   Category
                 </FormLabel>
@@ -95,16 +95,16 @@ const EditRequest = () => {
                   <MenuItem value="billing">Billing</MenuItem>
                   <MenuItem value="other">Other</MenuItem>
                 </Select>
-              </FormControl>
+              </FormControl> */}
 
               <TextField
                 style={{ paddingBottom: '30px' }}
                 name="problem"
                 id="outlined-multiline-static"
-                label="Problem"
+                //label="Problem"
                 multiline
                 maxRows={12}
-                value={data.problem}
+                defaultValue={data.problem}
                 onChange={(e) => {
                   setProblem(e.target.value);
                 }}
@@ -112,35 +112,37 @@ const EditRequest = () => {
               />
             </Grid>
 
-            <Grid item xs={6}>
-              <FormLabel required="true" className="label">
-                Severity Level
-              </FormLabel>
-              <RadioGroup
-                style={{ paddingBottom: '20px' }}
-                name="severity_level"
-                value={data.severityLevel}
-                required
-                onChange={(e) => {
-                  setSeverityLevel(e.target.value);
-                }}
-              >
-                <FormControlLabel
-                  value="minor"
-                  control={<Radio color="success" />}
-                  label="Minor"
-                />
-                <FormControlLabel
-                  value="major"
-                  control={<Radio color="success" />}
-                  label="Major"
-                />
-                <FormControlLabel
-                  value="critical"
-                  control={<Radio color="success" />}
-                  label="Critical"
-                />
-              </RadioGroup>
+            {/* <Grid item xs={6}>
+              <FormControl>
+                <FormLabel required="true" className="label">
+                  Severity Level
+                </FormLabel>
+                <RadioGroup
+                  style={{ paddingBottom: '20px' }}
+                  name="severity_level"
+                  defaultValue={data.severityLevel}
+                  required
+                  onChange={(e) => {
+                    setSeverityLevel(e.target.value);
+                  }}
+                >
+                  <FormControlLabel
+                    value="minor"
+                    control={<Radio color="success" />}
+                    label="Minor"
+                  />
+                  <FormControlLabel
+                    value="major"
+                    control={<Radio color="success" />}
+                    label="Major"
+                  />
+                  <FormControlLabel
+                    value="critical"
+                    control={<Radio color="success" />}
+                    label="Critical"
+                  />
+                </RadioGroup>
+              </FormControl>
 
               <FormLabel required="true" className="label">
                 Site Name
@@ -170,7 +172,7 @@ const EditRequest = () => {
                   label="Cabana"
                 />
               </RadioGroup>
-            </Grid>
+              </Grid>*/}
           </Grid>
 
           <div style={{ paddingTop: '50px' }}>

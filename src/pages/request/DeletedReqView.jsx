@@ -16,19 +16,17 @@ import '../viewpage.css';
 import { Edit } from '@mui/icons-material';
 import Moment from 'react-moment';
 
-const ViewRequest = () => {
-  const { idRequest } = useParams();
+const DeletedReqView = () => {
+  const { idbin } = useParams();
 
   const [Data, setData] = useState([]);
 
   //Request info
   useEffect(() => {
-    axios
-      .get(`http://localhost:3001/request/view/${idRequest}`)
-      .then((response) => {
-        setData({ ...response.data[0] });
-      });
-  }, [idRequest]);
+    axios.get(`http://localhost:3001/bin/view/${idbin}`).then((response) => {
+      setData({ ...response.data[0] });
+    });
+  }, [idbin]);
 
   return (
     <>
@@ -38,7 +36,7 @@ const ViewRequest = () => {
         <Card>
           <CardContent>
             <Grid container spacing={2} columnSpacing={8}>
-              <Grid item xs={10}>
+              <Grid item xs={6}>
                 <Box className="content">
                   <Typography fontFamily="Asap">
                     <b style={{ paddingRight: '220px' }}>
@@ -88,10 +86,18 @@ const ViewRequest = () => {
                       </p>
                       <p style={{ fontSize: '18px' }}>
                         <span style={{ color: 'black' }}>
-                          <b>Last Updated Date : </b>{' '}
+                          <b>Created Date : </b>{' '}
                         </span>
                         <Moment format="YYYY/MM/DD" style={{ color: 'gray' }}>
-                          {Data.last_updated}
+                          {Data.date}
+                        </Moment>
+                      </p>
+                      <p style={{ fontSize: '18px' }}>
+                        <span style={{ color: 'black' }}>
+                          <b>Deleted Date : </b>{' '}
+                        </span>
+                        <Moment format="YYYY/MM/DD" style={{ color: 'gray' }}>
+                          {Data.deleted_at}
                         </Moment>
                       </p>
                     </div>
@@ -106,4 +112,4 @@ const ViewRequest = () => {
   );
 };
 
-export default ViewRequest;
+export default DeletedReqView;

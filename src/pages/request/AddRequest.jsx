@@ -102,6 +102,7 @@ const AddRequest = () => {
     console.log(values);
     await axios.post('http://localhost:3001/request/new', values).then(() => {
       console.log('success');
+      setValues(initialValues);
       swal({
         text: 'Request added successfully',
         icon: 'success',
@@ -138,9 +139,9 @@ const AddRequest = () => {
                       </FormLabel>
                       <Select
                         style={{
-                          paddingBottom: '20px',
                           width: '220%',
                           height: '35px',
+                          textAlign: 'center',
                         }}
                         id="demo-simple-select"
                         name="category"
@@ -148,11 +149,12 @@ const AddRequest = () => {
                         required
                         onChange={handleChange}
                       >
-                        <MenuItem value="subscription">Subscription</MenuItem>
-                        <MenuItem value="site">Site</MenuItem>
-                        <MenuItem value="payment">Payment</MenuItem>
-                        <MenuItem value="billing">Billing</MenuItem>
-                        <MenuItem value="other">Other</MenuItem>
+                        <MenuItem value="subscription">Subscription </MenuItem>
+
+                        <MenuItem value="site">Site </MenuItem>
+                        <MenuItem value="payment">Payment </MenuItem>
+                        <MenuItem value="billing">Billing </MenuItem>
+                        <MenuItem value="other">Other </MenuItem>
                       </Select>
                     </FormControl>
                     {/* <FormLabel required="true" className="label">
@@ -232,6 +234,7 @@ const AddRequest = () => {
                         label="Cabana"
                       />
                     </RadioGroup>
+
                     <div>
                       <FormLabel
                         className="label"

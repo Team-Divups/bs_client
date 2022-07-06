@@ -24,6 +24,9 @@ import ViewRequest from './pages/request/ViewRequest';
 import './App.css';
 
 import { useStateContext } from './contexts/ContextProvider';
+import DeletedRequest from './pages/request/DeletedRequest';
+import DeletedReqView from './pages/request/DeletedReqView';
+import Chat from './components/Chat';
 
 const App = () => {
   const { currentMode, activeMenu, currentColor, setThemeSettings } =
@@ -32,18 +35,19 @@ const App = () => {
 
   return (
     <div className={currentMode === 'Light' ? 'light' : ''}>
+      <Chat />
       <BrowserRouter>
         <div className="flex relative dark:bg-main-dark-bg">
           <div className="fixed right-4 bottom-4" style={{ zIndex: '1000' }}>
             <TooltipComponent content="Settings" position="Top">
-              <button
+              {/* <button
                 type="button"
                 onClick={() => setThemeSettings(true)}
                 style={{ background: currentColor, borderRadius: '50%' }}
                 className="text-3xl text-white p-3 hover:drop-shadow-xl hover:bg-light-gray"
               >
                 <FiSettings />
-              </button>
+              </button> */}
             </TooltipComponent>
           </div>
           {activeMenu ? (
@@ -90,6 +94,11 @@ const App = () => {
                   <Route path="new" element={<AddRequest />} />
                   <Route path="edit/:idRequest" element={<EditRequest />} />
                   <Route path="view/:idRequest" element={<ViewRequest />} />
+                  <Route path="bin" element={<DeletedRequest />} />
+                  <Route
+                    path="bin/help/bin/:idbin"
+                    element={<DeletedReqView />}
+                  />
                 </Route>
 
                 {/* apps  */}
