@@ -12,7 +12,7 @@ const Bar_Chart = () => {
     const [countryData, setCountryData] = useState([]);
 
     useEffect( () =>{
-      axios.get("http://localhost:5000/review/getCountryTotal").then(
+      axios.get("http://localhost:3004/review/getCountryTotal").then(
         (response)=>{
             setCountryData(response.data);
             console.log(response.data);

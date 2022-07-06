@@ -63,7 +63,7 @@ const Table_Chart = () => {
 
 
   useEffect( () =>{
-    axios.get(`http://localhost:5000/review/getReviews`).then(
+    axios.get(`http://localhost:3004/review/getReviews`).then(
         (response)=>{
             setSiteData(response.data);
             console.log(response.data);

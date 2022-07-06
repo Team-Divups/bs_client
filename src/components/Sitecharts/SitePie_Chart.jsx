@@ -35,7 +35,7 @@ const SitePie_Chart = ({siteid}) => {
     const [ratingData, setRatingData] = useState([]);
 
     useEffect( () =>{
-      axios.get(`http://localhost:5000/review/getSiteReviewsTotal/${siteid.id}`).then(
+      axios.get(`http://localhost:3004/review/getSiteReviewsTotal/${siteid.id}`).then(
         (response)=>{
             setRatingData(response.data);
             console.log(response.data);

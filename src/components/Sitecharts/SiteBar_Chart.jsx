@@ -10,7 +10,7 @@ const SiteBar_Chart = ({siteid}) => {
     const [countryData, setCountryData] = useState([]);
 
     useEffect( () =>{
-      axios.get(`http://localhost:5000/review/getSiteCountryTotal/${siteid.id}`).then(
+      axios.get(`http://localhost:3004/review/getSiteCountryTotal/${siteid.id}`).then(
         (response)=>{
             setCountryData(response.data);
             console.log(response.data);

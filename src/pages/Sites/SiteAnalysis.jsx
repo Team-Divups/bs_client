@@ -62,7 +62,7 @@ const SiteAnalysis =()=> {
 
 
   useEffect( () =>{
-    axios.get(`http://localhost:5000/review/getSiteReviews/ ${id}`).then(
+    axios.get(`http://localhost:3004/review/getSiteReviews/ ${id}`).then(
         (response)=>{
             setSiteData(response.data);
             console.log(response.data);
@@ -70,7 +70,7 @@ const SiteAnalysis =()=> {
 },[])
 
 useEffect( () =>{
-  axios.get(`http://localhost:5000/review/getAverage/ ${id}`).then(
+  axios.get(`http://localhost:3004/review/getAverage/ ${id}`).then(
       (response)=>{
         setAverage(response.data);
           console.log(response.data);
@@ -138,7 +138,34 @@ useEffect( () =>{
                                    return(<> 
                                       <Rating value={sdata.Total}  readOnly size="large" precision={0.05} />
                                      <p style={{paddingBottom:'5px',paddingTop:'1px', fontSize:'20px'}}><b> Average Ratings :- {sdata.Total} </b></p>
-                                  
+                                     <div>
+                                     <p style={{paddingBottom:'5px',paddingTop:'1px', fontSize:'20px'}}><b> Overall Mood </b></p>
+                                        {sdata.Average >= 0.700 ? (
+                                          <Button
+                                            variant="contained"
+                                            style={{ backgroundColor: "#90EE90" }}
+                                            size="small"
+                                          >
+                                            😀
+                                          </Button>
+                                        ) : sdata.Average >= 0.400 ? (
+                                          <Button
+                                            variant="contained"
+                                            style={{ backgroundColor: "#FFFFE0" }}
+                                            size="small"
+                                          >
+                                            😑
+                                          </Button>
+                                        ) : (
+                                          <Button
+                                            variant="contained"
+                                            style={{ backgroundColor: "#ffcccb" }}
+                                            size="small"
+                                          >
+                                            😡
+                                          </Button>
+                                        )}
+                                      </div>
                                      
                                       </>)
                                   })}

@@ -24,7 +24,7 @@ const Dashboard = () => {
 
     useEffect( () =>{
       
-        axios.get("http://localhost:5000/review/getSummary").then(
+        axios.get("http://localhost:3004/review/getSummary").then(
         (response)=>{
           setTotalUsers(response.data);
           console.log(response.data);
@@ -34,7 +34,7 @@ const Dashboard = () => {
 
     useEffect( () =>{
       
-      axios.get("http://localhost:5000/site/getSummary").then(
+      axios.get("http://localhost:3004/site/getSummary").then(
       (response)=>{
         setSites(response.data);
         console.log(response.data);

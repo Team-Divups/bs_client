@@ -80,7 +80,7 @@ const Line_Area = () => {
     const [monthData, setMonthData] = useState([]);
 
     useEffect( () =>{
-      axios.get("http://localhost:5000/review/monthTotal").then(
+      axios.get("http://localhost:3004/review/monthTotal").then(
         (response)=>{
             setMonthData(response.data);
             console.log(response.data);
