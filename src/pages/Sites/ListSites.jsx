@@ -163,7 +163,11 @@ const ListSites = (props) => {
                   >
                     <img
                       className="siteimg"
-                      src={sdata.siteimg}
+                      src={
+                        sdata.siteimg
+                          ? `http://localhost:3004/${sdata.siteimg}`
+                          : site
+                      }
                       alt="site"
                     />
 

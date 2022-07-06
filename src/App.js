@@ -1,31 +1,42 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useState} from 'react';
+import { useState } from 'react';
 import { FiSettings } from 'react-icons/fi';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 
-import { Navbar, Footer, Sidebar} from './components';
+import { Navbar, Footer, Sidebar } from './components';
 import {
- Kanban,Editor, ListSites, NewSites, EditSites, ViewSites,  Dashboard, SiteAnalysis, MailForReviews, IndivualAnalysis} from './pages';
+  Kanban,
+  Editor,
+  ListSites,
+  NewSites,
+  EditSites,
+  ViewSites,
+  Dashboard,
+  SiteAnalysis,
+  MailForReviews,
+} from './pages';
+
+
+import AddRequest from './pages/request/AddRequest';
+import EditRequest from './pages/request/EditRequest';
+import ListRequest from './pages/request/ListRequest';
+import ViewRequest from './pages/request/ViewRequest';
 
 import './App.css';
 
-
 import { useStateContext } from './contexts/ContextProvider';
 
-
 const App = () => {
-  const { currentMode, activeMenu, currentColor,  setThemeSettings } = useStateContext();
-  const [subid,setSubid] = useState(2);
- 
+  const { currentMode, activeMenu, currentColor, setThemeSettings } =
+    useStateContext();
+  const [subid, setSubid] = useState(2);
+
   return (
     <div className={currentMode === 'Light' ? 'light' : ''}>
       <BrowserRouter>
         <div className="flex relative dark:bg-main-dark-bg">
           <div className="fixed right-4 bottom-4" style={{ zIndex: '1000' }}>
-            <TooltipComponent
-              content="Settings"
-              position="Top"
-            >
+            <TooltipComponent content="Settings" position="Top">
               <button
                 type="button"
                 onClick={() => setThemeSettings(true)}
@@ -34,7 +45,6 @@ const App = () => {
               >
                 <FiSettings />
               </button>
-
             </TooltipComponent>
           </div>
           {activeMenu ? (
@@ -57,29 +67,32 @@ const App = () => {
               <Navbar />
             </div>
             <div>
-              
-
               <Routes>
                 {/* dashboard  */}
-                <Route path="/" element={(<Dashboard/>)} />
-                <Route path="/dashboard" element={(<Dashboard/>)} />
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/dashboard" element={<Dashboard />} />
 
                 {/* pages  */}
-            
+
                 <Route path="/sites">
                   <Route index element={<ListSites id={subid}/>}/>
                   <Route path='new' element={<NewSites  id={subid}/>}/>
                   <Route path=':siteid' element={<SiteAnalysis/>}/>
                   <Route path='edit/:siteid' element={<EditSites  id={subid}/>}/>
                   <Route path='mail' element={<MailForReviews/>}/>
-                  <Route path='analysis/:siteid' element={<IndivualAnalysis/>}/>
                 </Route>
 
+                {/* request */}
+                <Route path="/help">
+                  <Route index element={<ListRequest />} />
+                  <Route path="new" element={<AddRequest />} />
+                  <Route path="edit/:idRequest" element={<EditRequest />} />
+                  <Route path="view/:idRequest" element={<ViewRequest />} />
+                </Route>
 
                 {/* apps  */}
                 <Route path="/kanban" element={<Kanban />} />
                 <Route path="/editor" element={<Editor />} />
-
               </Routes>
             </div>
             <Footer />
