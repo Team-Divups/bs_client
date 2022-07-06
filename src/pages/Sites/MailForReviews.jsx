@@ -6,6 +6,8 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import axios from 'axios';
+import swal from "sweetalert";
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -39,16 +41,23 @@ export default function MailForReviews() {
 
 
     //This is to senet individual mails
-    const createMail = () => {
-        axios.post("http://localhost:3001/mail",{
+    const createMail = (e) => {
+        e.preventDefault();
+        axios.post("http://localhost:3004/mail",{
           email: email,
           review:message,
           subid:subid,
+
           
-        }).then(()=>
-        console.log("Succefully Created"),
-        //setData([...data, {b_name: name,reviewID: reviewID,email: email,country: country,status: status,date : date}])
-        );
+          
+        });
+        swal({
+          text: "Site created successfully",
+          icon: "success",
+          timer: 2000,
+          buttons: false,
+        });
+
     
       };
 
@@ -102,7 +111,7 @@ export default function MailForReviews() {
         variant="contained"
         style={{background: "#84fae4"  }}
         className={classes.submit}
-        onClick={()=>createMail()}
+        onClick={(event)=>createMail(event)}
       >
         Send Review request
       </Button>
