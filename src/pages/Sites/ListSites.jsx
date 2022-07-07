@@ -68,8 +68,8 @@ const ListSites = (props) => {
         axios
           .post(`http://localhost:3004/request/create`, {
             problem: "Delete this site",
-            status: "Not started",
-            siteId: id,
+            SiteId: id,
+            SubId: props.id,
           })
           .then((response) => {
             swal({
