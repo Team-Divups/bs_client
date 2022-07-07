@@ -104,7 +104,7 @@ const ListRequest = () => {
     }).then((willDelete) => {
       if (willDelete) {
         axios
-          .delete('http://localhost:3001/help/delete/all')
+          .delete('http://localhost:3001/request/delete/all')
           .then((response) => {
             swal({
               title: 'Done !',
@@ -126,51 +126,6 @@ const ListRequest = () => {
 
   return (
     <>
-      {/* <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
-        <Header category="Page" title="Help Request" />
-        <Grid container spacing={2}>
-          <Grid item xs={9}>
-            <span className="dataTableTitle">Overview of Help Request</span>
-          </Grid>
-
-          <Grid item xs={3}>
-            <span style={{ paddingLeft: '30px', paddingRight: '20px' }}>
-              <Button
-                style={{ backgroundColor: '#84fae4' }}
-                size="small"
-                variant="contained"
-                onClick={DeleteAll}
-                endIcon={<DeleteSweepRounded />}
-              >
-                Recycle Bin
-              </Button>
-            </span>
-            <span style={{ paddingLeft: '30px', paddingRight: '20px' }}>
-              <Button
-                style={{ backgroundColor: 'red' }}
-                size="small"
-                variant="contained"
-                onClick={DeleteAll}
-                endIcon={<DeleteOutlineSharp />}
-              >
-                Delete All
-              </Button>
-            </span>
-
-            <span>
-              <Link to="/help/new">
-                <Button
-                  size="small"
-                  variant="contained"
-                  endIcon={<AddCircleRounded />}
-                >
-                  Add
-                </Button>
-              </Link>
-            </span>
-          </Grid>
-        </Grid> */}
-
       <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
         <Header category="Pages" title="Help Request" />
 

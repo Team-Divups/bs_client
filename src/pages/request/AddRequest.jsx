@@ -149,12 +149,11 @@ const AddRequest = () => {
                         required
                         onChange={handleChange}
                       >
-                        <MenuItem value="subscription">Subscription </MenuItem>
-
-                        <MenuItem value="site">Site </MenuItem>
-                        <MenuItem value="payment">Payment </MenuItem>
-                        <MenuItem value="billing">Billing </MenuItem>
-                        <MenuItem value="other">Other </MenuItem>
+                        <MenuItem value={'subscription'}>Subscription</MenuItem>
+                        <MenuItem value={'site'}>Site </MenuItem>
+                        <MenuItem value={'payment'}>Payment </MenuItem>
+                        <MenuItem value={'billing'}>Billing </MenuItem>
+                        <MenuItem value={'other'}>Other </MenuItem>
                       </Select>
                     </FormControl>
                     {/* <FormLabel required="true" className="label">
