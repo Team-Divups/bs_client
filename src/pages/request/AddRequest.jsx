@@ -137,24 +137,41 @@ const AddRequest = () => {
                       <FormLabel required="true" className="label">
                         Category
                       </FormLabel>
-                      <Select
-                        style={{
-                          width: '220%',
-                          height: '35px',
-                          textAlign: 'center',
-                        }}
-                        id="demo-simple-select"
+                      <RadioGroup
+                        style={{ paddingBottom: '20px' }}
                         name="category"
                         value={values.category}
                         required
                         onChange={handleChange}
+                        error={FormErrors.category}
+                        helperText={FormErrors.category}
                       >
-                        <MenuItem value={'subscription'}>Subscription</MenuItem>
-                        <MenuItem value={'site'}>Site </MenuItem>
-                        <MenuItem value={'payment'}>Payment </MenuItem>
-                        <MenuItem value={'billing'}>Billing </MenuItem>
-                        <MenuItem value={'other'}>Other </MenuItem>
-                      </Select>
+                        <FormControlLabel
+                          value="subscription"
+                          control={<Radio color="success" />}
+                          label="Subscription"
+                        />
+                        <FormControlLabel
+                          value="site"
+                          control={<Radio color="success" />}
+                          label="Site"
+                        />
+                        <FormControlLabel
+                          value="payment"
+                          control={<Radio color="success" />}
+                          label="Payment"
+                        />
+                        <FormControlLabel
+                          value="billing"
+                          control={<Radio color="success" />}
+                          label="Billing"
+                        />
+                        <FormControlLabel
+                          value="other"
+                          control={<Radio color="success" />}
+                          label="Other"
+                        />
+                      </RadioGroup>
                     </FormControl>
                     {/* <FormLabel required="true" className="label">
                       Problem

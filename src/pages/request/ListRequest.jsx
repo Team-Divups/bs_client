@@ -94,35 +94,35 @@ const ListRequest = () => {
     },
   ];
 
-  const DeleteAll = (e) => {
-    e.preventDefault();
+  // const DeleteAll = (e) => {
+  //   e.preventDefault();
 
-    swal({
-      text: 'Are you sure you want to delete?',
-      buttons: true,
-      dangerMode: true,
-    }).then((willDelete) => {
-      if (willDelete) {
-        axios
-          .delete('http://localhost:3001/request/delete/all')
-          .then((response) => {
-            swal({
-              title: 'Done !',
-              text: 'All help requests are deleted',
-              icon: 'success',
-              timer: 2000,
-              button: false,
-            });
-          });
-      } else {
-        swal({
-          text: 'Subscription details are restored !',
-          buttons: false,
-          timer: 2000,
-        });
-      }
-    });
-  };
+  //   swal({
+  //     text: 'Are you sure you want to delete?',
+  //     buttons: true,
+  //     dangerMode: true,
+  //   }).then((willDelete) => {
+  //     if (willDelete) {
+  //       axios
+  //         .delete('http://localhost:3001/request/delete/all')
+  //         .then((response) => {
+  //           swal({
+  //             title: 'Done !',
+  //             text: 'All help requests are deleted',
+  //             icon: 'success',
+  //             timer: 2000,
+  //             button: false,
+  //           });
+  //         });
+  //     } else {
+  //       swal({
+  //         text: 'Subscription details are restored !',
+  //         buttons: false,
+  //         timer: 2000,
+  //       });
+  //     }
+  //   });
+  // };
 
   return (
     <>
@@ -148,7 +148,7 @@ const ListRequest = () => {
               </Link>
             </span>
 
-            <span style={{ paddingRight: '25px' }}>
+            {/* <span style={{ paddingRight: '25px' }}>
               <Button
                 style={{ backgroundColor: 'red' }}
                 size="small"
@@ -158,7 +158,7 @@ const ListRequest = () => {
               >
                 Delete All
               </Button>
-            </span>
+            </span> */}
 
             <span>
               <Link to="/help/new">
