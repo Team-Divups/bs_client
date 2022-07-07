@@ -44,7 +44,7 @@ const DeletedRequest = () => {
           .then((response) => {
             swal({
               title: 'Done !',
-              text: 'Requets is restored',
+              text: 'Requet is restored',
               icon: 'success',
               timer: 2000,
               button: false,
